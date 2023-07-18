@@ -38,6 +38,7 @@
       }
     ],
     "no-duplicate-imports": "error",
-    "default-param-last": "error"
+    "default-param-last": "error",
+    "@typescript-eslint/no-misused-promises": "warn"
   }
 }

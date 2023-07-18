@@ -1,0 +1,30 @@
+.c-button {
+  width: 100%;
+  border: none;
+  border-radius: $br-pill;
+  outline: none;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 1rem 0;
+  transition: all 0.3s ease-out;
+
+  &--primary {
+    background-color: $color-secondary-light;
+    color: $color-primary-light;
+
+    &.is-disabled {
+      background-color: $color-secondary-dark;
+      cursor: default;
+    }
+
+    &:hover {
+      transform: translateY(-0.3rem);
+      box-shadow: 0 0.2rem 2rem $color-secondary-light;
+    }
+
+    &:active {
+      transform: translateY(0.1rem);
+      box-shadow: 0 0.1rem 1rem $color-secondary-light;
+    }
+  }
+}
