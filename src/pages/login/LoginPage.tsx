@@ -4,6 +4,8 @@ import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {LoginForm, loginPageValidationSchema} from './LoginPageValidations';
 import Button from '../../components/Button';
+import {useDispatch} from 'react-redux';
+import {userLoginRequestAction} from '../../store/actions/userActions';
 
 const LoginPage: React.FC = () => {
   const {
@@ -13,12 +15,12 @@ const LoginPage: React.FC = () => {
     formState: {errors},
   } = useForm<LoginForm>({resolver: zodResolver(loginPageValidationSchema)});
   const watchFields = watch();
+  const dispatch = useDispatch();
 
   const isDisabled = !watchFields.email && !watchFields.password;
 
-  const submitForm = (data: LoginForm): void => {
-     
-    console.log(data);
+  const onSubmit = ({email, password}: LoginForm) => {
+    dispatch(userLoginRequestAction(email, password));
   };
 
   return (
@@ -26,7 +28,7 @@ const LoginPage: React.FC = () => {
       <div className="p-login__logo">
         <img src={logo} alt="logo" />
       </div>
-      <form onSubmit={handleSubmit(submitForm)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <input type="text" placeholder="example@vuka.hr" id="email" {...register('email')} autoFocus />
         {errors.email && <span>{errors.email.message}</span>}
 
