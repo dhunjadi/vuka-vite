@@ -1,35 +1,28 @@
-/* eslint-env node */
-
 module.exports = {
   root: true,
   env: {browser: true, es2020: true},
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:@typescript-eslint/recommended-requiring-type-checking',
-    'plugin:react-hooks/recommended',
-  ],
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:react-hooks/recommended'],
+  ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: true,
-    tsconfigRootDir: __dirname,
-  },
   plugins: ['react-refresh'],
   rules: {
     'react-refresh/only-export-components': ['warn', {allowConstantExport: true}],
-    '@typescript-eslint/no-non-null-assertion': 'off',
-    '@typescript-eslint/no-misused-promises': [
-      2,
+    'no-duplicate-imports': 'error',
+    'no-console': 'warn',
+    'max-len': [
+      'warn',
       {
-        checksVoidReturn: {
-          attributes: false,
-        },
+        code: 140,
       },
     ],
-    '@typescript-eslint/restrict-template-expressions': 'off',
-    '@typescript-eslint/no-unsafe-assignment': 'off',
-    '@typescript-eslint/no-unsafe-argument': 'off',
+    camelcase: 'warn',
+    'no-underscore-dangle': 'error',
+    'no-const-assign': 'error',
+    'no-compare-neg-zero': 'error',
+    'no-constant-condition': 'error',
+    'no-debugger': 'error',
+    'no-self-compare': 'error',
+    'no-unreachable': 'error',
+    'comma-spacing': 'warn',
   },
 };

@@ -5,7 +5,10 @@ import {zodResolver} from '@hookform/resolvers/zod';
 import {LoginForm, loginPageValidationSchema} from './LoginPageValidations';
 import Button from '../../components/Button';
 import {useDispatch} from 'react-redux';
-import {userLoginRequestAction} from '../../store/actions/userActions';
+import {User} from '../../types';
+import axios from 'axios';
+import {setLoggedinUserAction} from '../../store/actions/userActions';
+import {useNavigate} from 'react-router-dom';
 
 const LoginPage: React.FC = () => {
   const {
@@ -16,11 +19,15 @@ const LoginPage: React.FC = () => {
   } = useForm<LoginForm>({resolver: zodResolver(loginPageValidationSchema)});
   const watchFields = watch();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const isDisabled = !watchFields.email && !watchFields.password;
+  const isDisabled = !watchFields.email || !watchFields.password;
 
-  const onSubmit = ({email, password}: LoginForm) => {
-    dispatch(userLoginRequestAction(email, password));
+  const onSubmit = async ({email, password}: LoginForm) => {
+    await axios.post('http://localhost:4000/auth/login', {email, password}).then((res) => {
+      dispatch(setLoggedinUserAction(res.data as User));
+      navigate('/news');
+    });
   };
 
   return (
