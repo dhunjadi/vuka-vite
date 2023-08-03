@@ -4,7 +4,7 @@ interface ButtonProps {
   onClick?: () => void;
   children: React.ReactNode;
   className?: string;
-  type: HTMLButtonElement['type'];
+  type?: HTMLButtonElement['type'];
   variant?: 'primary' | 'secondary';
   disabled?: boolean;
 }

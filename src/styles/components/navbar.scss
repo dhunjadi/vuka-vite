@@ -1,0 +1,181 @@
+.c-navbar {
+    background-color: $color-primary-dark;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    right: 0;
+    z-index: 99;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    border-radius: 0 0 $br-standard $br-standard;
+    margin-bottom: 2rem;
+
+    @include glassMorphism;
+
+    &.is-visible {
+        opacity: 100%;
+    }
+
+    &__logo {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        color: $color-white;
+        font-size: 1.6rem;
+
+        & img {
+            width: 6rem;
+            margin-right: 1rem;
+
+            @include screenTablet {
+                width: 10rem;
+            }
+        }
+    }
+
+    &__burgerMenu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 3rem;
+
+        @include screenTablet {
+            display: none;
+        }
+    }
+
+    &__icons {
+        position: absolute;
+        right: 1rem;
+        top: -50%;
+        transform: translateY(50%);
+        visibility: hidden;
+        opacity: 0%;
+        display: flex;
+        flex-direction: column;
+        border-radius: $br-pill;
+        align-items: center;
+        transition: all 0.5s ease-in-out;
+
+        @include screenTablet {
+            background-color: transparent;
+            border: none;
+            flex-direction: row;
+            justify-content: center;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 0;
+            right: 0;
+            @include glassMorphismDisabled;
+        }
+
+        &.is-open {
+            opacity: 100%;
+            visibility: initial;
+            @include glassMorphism;
+
+            @include screenTablet {
+                @include glassMorphismDisabled;
+            }
+        }
+
+        a,
+        button {
+            background-color: transparent;
+            border: none;
+            width: 3rem;
+            transition: all 0.2s ease-in-out;
+            margin: 1rem;
+
+            @include screenTablet {
+                margin: 2;
+                width: 4rem;
+            }
+
+            @include screenDesktop {
+                margin: 1rem 1.5rem;
+                width: 4.5rem;
+            }
+        }
+
+        &_news {
+            &::before {
+                content: url('../assets/navbar/home.svg');
+            }
+
+            &.active::before,
+            &:hover::before {
+                content: url('../assets/navbar/homeHover.svg');
+            }
+        }
+
+        &_tasks {
+            &::before {
+                content: url('../assets/navbar/tasks.svg');
+            }
+
+            &.active::before,
+            &:hover::before {
+                content: url('../assets/navbar/tasksHover.svg');
+            }
+        }
+
+        &_schedule {
+            &::before {
+                content: url('../assets/navbar/schedule.svg');
+            }
+
+            &.active::before,
+            &:hover::before {
+                content: url('../assets/navbar/scheduleHover.svg');
+            }
+        }
+
+        &_library {
+            &::before {
+                content: url('../assets/navbar/library.svg');
+            }
+
+            &.active::before,
+            &:hover::before {
+                content: url('../assets/navbar/libraryHover.svg');
+            }
+        }
+
+        &_grades {
+            &::before {
+                content: url('../assets/navbar/grades.svg');
+            }
+
+            &.active::before,
+            &:hover::before {
+                content: url('../assets/navbar/gradesHover.svg');
+            }
+        }
+
+        &_settings {
+            &::before {
+                content: url('../assets/navbar/settings.svg');
+            }
+
+            &.active::before,
+            &:hover::before {
+                content: url('../assets/navbar/settingsHover.svg');
+            }
+        }
+
+        &_logout {
+            &::before {
+                content: url('../assets/navbar/logout.svg');
+            }
+
+            &.active::before,
+            &:hover::before {
+                content: url('../assets/navbar/logoutHover.svg');
+            }
+        }
+    }
+}
