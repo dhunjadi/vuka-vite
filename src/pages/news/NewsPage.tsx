@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {getNewsByType} from '../../services/newsService';
+import {addNewNews, getNewsByType} from '../../services/newsService';
 import {News} from '../../types';
 import Card from '../../components/Card';
 import Tabs from '../../components/Tabs';
@@ -14,13 +14,17 @@ const NewsPage = () => {
         getNewsByType(selectedNewsType).then((res) => setNewsList(res));
     }, [selectedNewsType]);
 
+    const handleAddNewNews = async () => {
+        addNewNews();
+        getNewsByType(selectedNewsType).then((res) => setNewsList(res));
+    };
     return (
         <div className="p-news">
             <Tabs
                 tabList={newsTypes}
                 selectedTab={selectedNewsType}
                 handleSelect={(tab) => setSelectedNewsType(tab)}
-                buttons={<Button>Add news</Button>}
+                buttons={<Button onClick={handleAddNewNews}>Add news</Button>}
             />
             {newsList.map((el) => {
                 return <Card key={el._id} {...el} />;
