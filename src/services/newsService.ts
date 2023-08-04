@@ -17,8 +17,15 @@ export const getNewsByType = async (type: string) => {
 };
 
 export const addNewNews = async () => {
-    await axios
+    return await axios
         .post(`${API_URL}/news/new`)
+        .then((res) => res.data)
+        .catch((err) => console.log(err));
+};
+
+export const deleteNews = async (id: string) => {
+    return await axios
+        .delete(`${API_URL}/news/delete/${id}`)
         .then((res) => res.data)
         .catch((err) => console.log(err));
 };

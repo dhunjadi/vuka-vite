@@ -24,4 +24,10 @@
         font-weight: 700;
         text-transform: capitalize;
     }
+
+    &__buttons {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
 }

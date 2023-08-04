@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {addNewNews, getNewsByType} from '../../services/newsService';
+import {addNewNews, deleteNews, getNewsByType} from '../../services/newsService';
 import {News} from '../../types';
 import Card from '../../components/Card';
 import Tabs from '../../components/Tabs';
@@ -11,12 +11,21 @@ const NewsPage = () => {
     const [selectedNewsType, setSelectedNewsType] = useState(newsTypes[0]);
 
     useEffect(() => {
-        getNewsByType(selectedNewsType).then((res) => setNewsList(res));
+        loadNews(selectedNewsType);
     }, [selectedNewsType]);
 
+    const loadNews = (type: string) => {
+        getNewsByType(type).then((res) => setNewsList(res));
+    };
+
     const handleAddNewNews = async () => {
-        addNewNews();
-        getNewsByType(selectedNewsType).then((res) => setNewsList(res));
+        await addNewNews();
+        loadNews(selectedNewsType);
+    };
+
+    const handleDeleteNews = async (id: string) => {
+        await deleteNews(id);
+        loadNews(selectedNewsType);
     };
     return (
         <div className="p-news">
@@ -27,7 +36,7 @@ const NewsPage = () => {
                 buttons={<Button onClick={handleAddNewNews}>Add news</Button>}
             />
             {newsList.map((el) => {
-                return <Card key={el._id} {...el} />;
+                return <Card key={el._id} {...el} handleDelete={() => handleDeleteNews(el._id)} />;
             })}
         </div>
     );
