@@ -1,10 +1,9 @@
 import {useEffect, useState} from 'react';
-import {addNewNews, deleteNews} from '../../services/newsService';
 import {NewsType} from '../../types';
 import Card from '../../components/Card';
 import Tabs from '../../components/Tabs';
 import Button from '../../components/Button';
-import {fetchNewsByTypeAction} from '../../store/actions/newsActions';
+import {addNewNewsAction, deleteNewsAction, fetchNewsByTypeAction} from '../../store/actions/newsActions';
 import {useDispatch, useSelector} from 'react-redux';
 import {StoreState} from '../../store/reducers/rootReducer';
 
@@ -19,19 +18,14 @@ const NewsPage = () => {
         dispatch(fetchNewsByTypeAction(selectedNewsType));
     }, [selectedNewsType, dispatch]);
 
-    const loadNews = (type: NewsType) => {
-        dispatch(fetchNewsByTypeAction(type));
+    const handleAddNewNews = () => {
+        dispatch(addNewNewsAction());
     };
 
-    const handleAddNewNews = async () => {
-        await addNewNews();
-        loadNews(selectedNewsType);
+    const handleDeleteNews = (id: string) => {
+        dispatch(deleteNewsAction(id));
     };
 
-    const handleDeleteNews = async (id: string) => {
-        await deleteNews(id);
-        loadNews(selectedNewsType);
-    };
     return (
         <div className="p-news">
             <Tabs

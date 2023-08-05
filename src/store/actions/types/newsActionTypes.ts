@@ -1,5 +1,5 @@
 import {News, NewsType} from '../../../types';
-import {FETCH_NEWS_BY_TYPE, SET_NEWS_LIST} from '../newsActions';
+import {ADD_NEW_NEWS, DELETE_NEWS, FETCH_NEWS_BY_TYPE, SET_NEWS_LIST} from '../newsActions';
 
 export type FetchNewsByTypeAction = {
     type: typeof FETCH_NEWS_BY_TYPE;
@@ -11,4 +11,13 @@ export type SetNewsListAction = {
     news: News[];
 };
 
-export type NewsAction = FetchNewsByTypeAction | SetNewsListAction;
+export type AddNewNewsAction = {
+    type: typeof ADD_NEW_NEWS;
+};
+
+export type DeleteNewsAction = {
+    type: typeof DELETE_NEWS;
+    newsId: string;
+};
+
+export type NewsAction = FetchNewsByTypeAction | SetNewsListAction | AddNewNewsAction | DeleteNewsAction;

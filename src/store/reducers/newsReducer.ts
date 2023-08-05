@@ -1,5 +1,5 @@
 import {News} from '../../types';
-import {SET_NEWS_LIST} from '../actions/newsActions';
+import {DELETE_NEWS, SET_NEWS_LIST} from '../actions/newsActions';
 import {NewsAction} from '../actions/types/newsActionTypes';
 
 export interface NewsReducerState {
@@ -16,6 +16,11 @@ export const newsReducer = (state: NewsReducerState = initialState, action: News
             return {
                 ...state,
                 newsList: action.news,
+            };
+        case DELETE_NEWS:
+            return {
+                ...state,
+                newsList: [...state.newsList.filter((news) => news._id !== action.newsId)],
             };
         default:
             return state;
