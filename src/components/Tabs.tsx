@@ -1,14 +1,16 @@
+import {NewsType} from '../types';
+
 interface TabsProps {
     tabList: string[];
     selectedTab: string;
     text?: string;
     buttons?: JSX.Element;
-    handleSelect?: (chip: string) => void;
+    handleSelect: (tab: NewsType) => void;
 }
 
 const Tabs = ({tabList, selectedTab, text, buttons, handleSelect}: TabsProps): JSX.Element => {
     const handleToggle = (e: React.MouseEvent<HTMLButtonElement>): void => {
-        handleSelect && handleSelect(e.currentTarget.value);
+        handleSelect(e.currentTarget.value as NewsType);
     };
 
     return (

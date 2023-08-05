@@ -1,21 +1,26 @@
 import {useEffect, useState} from 'react';
-import {addNewNews, deleteNews, getNewsByType} from '../../services/newsService';
-import {News} from '../../types';
+import {addNewNews, deleteNews} from '../../services/newsService';
+import {NewsType} from '../../types';
 import Card from '../../components/Card';
 import Tabs from '../../components/Tabs';
 import Button from '../../components/Button';
+import {fetchNewsByTypeAction} from '../../store/actions/newsActions';
+import {useDispatch, useSelector} from 'react-redux';
+import {StoreState} from '../../store/reducers/rootReducer';
 
 const NewsPage = () => {
-    const newsTypes = ['general', 'professor'];
-    const [newsList, setNewsList] = useState<News[]>([]);
-    const [selectedNewsType, setSelectedNewsType] = useState(newsTypes[0]);
+    const dispatch = useDispatch();
+    const {newsList} = useSelector((state: StoreState) => state.newsReducer);
+
+    const newsTypes: NewsType[] = ['general', 'professor'];
+    const [selectedNewsType, setSelectedNewsType] = useState<NewsType>(newsTypes[0]);
 
     useEffect(() => {
-        loadNews(selectedNewsType);
-    }, [selectedNewsType]);
+        dispatch(fetchNewsByTypeAction(selectedNewsType));
+    }, [selectedNewsType, dispatch]);
 
-    const loadNews = (type: string) => {
-        getNewsByType(type).then((res) => setNewsList(res));
+    const loadNews = (type: NewsType) => {
+        dispatch(fetchNewsByTypeAction(type));
     };
 
     const handleAddNewNews = async () => {
