@@ -11,43 +11,43 @@ import {setLoggedinUserAction} from '../../store/actions/userActions';
 import {useNavigate} from 'react-router-dom';
 
 const LoginPage: React.FC = () => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: {errors},
-  } = useForm<LoginForm>({resolver: zodResolver(loginPageValidationSchema)});
-  const watchFields = watch();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: {errors},
+    } = useForm<LoginForm>({resolver: zodResolver(loginPageValidationSchema)});
+    const watchFields = watch();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-  const isDisabled = !watchFields.email || !watchFields.password;
+    const isDisabled = !watchFields.email || !watchFields.password;
 
-  const onSubmit = async ({email, password}: LoginForm) => {
-    await axios.post('http://localhost:4000/auth/login', {email, password}).then((res) => {
-      dispatch(setLoggedinUserAction(res.data as User));
-      navigate('/news');
-    });
-  };
+    const onSubmit = async ({email, password}: LoginForm) => {
+        await axios.post('http://localhost:4000/login', {email, password}).then((res) => {
+            dispatch(setLoggedinUserAction(res.data as User));
+            navigate('/news');
+        });
+    };
 
-  return (
-    <div className="p-login">
-      <div className="p-login__logo">
-        <img src={logo} alt="logo" />
-      </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="text" placeholder="example@vuka.hr" id="email" {...register('email')} autoFocus />
-        {errors.email && <span>{errors.email.message}</span>}
+    return (
+        <div className="p-login">
+            <div className="p-login__logo">
+                <img src={logo} alt="logo" />
+            </div>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <input type="text" placeholder="example@vuka.hr" id="email" {...register('email')} autoFocus />
+                {errors.email && <span>{errors.email.message}</span>}
 
-        <input type="password" placeholder="Password" id="password" {...register('password')} />
-        {errors.email && <span>{errors.password?.message}</span>}
+                <input type="password" placeholder="Password" id="password" {...register('password')} />
+                {errors.email && <span>{errors.password?.message}</span>}
 
-        <Button type="submit" disabled={isDisabled}>
-          Login
-        </Button>
-      </form>
-    </div>
-  );
+                <Button type="submit" disabled={isDisabled}>
+                    Login
+                </Button>
+            </form>
+        </div>
+    );
 };
 
 export default LoginPage;
