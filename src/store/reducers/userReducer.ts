@@ -7,7 +7,7 @@ export interface UserReducerState {
 }
 
 const initialState: UserReducerState = {
-    loggedInUser: {_id: '', fName: '', lName: '', email: '', password: '', imgSrc: '', role: ''},
+    loggedInUser: {_id: '', fName: '', lName: '', email: '', imgSrc: '', role: ''},
 };
 
 export const userReducer = (state: UserReducerState = initialState, action: UserAction) => {

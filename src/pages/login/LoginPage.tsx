@@ -5,10 +5,9 @@ import {zodResolver} from '@hookform/resolvers/zod';
 import {LoginForm, loginPageValidationSchema} from './LoginPageValidations';
 import Button from '../../components/Button';
 import {useDispatch} from 'react-redux';
-import {User} from '../../types';
-import axios from 'axios';
 import {setLoggedinUserAction} from '../../store/actions/userActions';
 import {useNavigate} from 'react-router-dom';
+import {login} from '../../services/userServices';
 
 const LoginPage: React.FC = () => {
     const {
@@ -24,10 +23,9 @@ const LoginPage: React.FC = () => {
     const isDisabled = !watchFields.email || !watchFields.password;
 
     const onSubmit = async ({email, password}: LoginForm) => {
-        await axios.post('http://localhost:4000/login', {email, password}).then((res) => {
-            dispatch(setLoggedinUserAction(res.data as User));
-            navigate('/news');
-        });
+        const user = await login({email, password});
+        dispatch(setLoggedinUserAction(user));
+        navigate('/news');
     };
 
     return (
