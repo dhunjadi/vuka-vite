@@ -27,6 +27,7 @@ const NewsPage = () => {
 
     const handleDeleteNews = (id: string) => {
         dispatch(deleteNewsAction(id));
+        setIsDeleteNewsModalOpen(false);
     };
 
     return (
@@ -54,7 +55,7 @@ const NewsPage = () => {
             <Modal
                 isOpen={isDeleteNewsModalOpen}
                 onCancel={() => setIsDeleteNewsModalOpen(false)}
-                onConfirm={() => handleDeleteNews}
+                onConfirm={() => handleDeleteNews(clickedNewsId)}
                 showCancel
                 showConfirm
                 header={'Delete news?'}
