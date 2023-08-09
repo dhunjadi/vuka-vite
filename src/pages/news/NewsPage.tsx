@@ -3,13 +3,15 @@ import {NewsType} from '../../types';
 import Card from '../../components/Card';
 import Tabs from '../../components/Tabs';
 import Button from '../../components/Button';
-import {addNewNewsAction, deleteNewsAction, fetchNewsByTypeAction} from '../../store/actions/newsActions';
+import {deleteNewsAction, fetchNewsByTypeAction} from '../../store/actions/newsActions';
 import {useDispatch, useSelector} from 'react-redux';
 import {StoreState} from '../../store/reducers/rootReducer';
 import Modal from '../../components/Modal';
+import {useNavigate} from 'react-router-dom';
 
 const NewsPage = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const {newsList} = useSelector((state: StoreState) => state.newsReducer);
 
     const newsTypes: NewsType[] = ['general', 'professor'];
@@ -22,7 +24,7 @@ const NewsPage = () => {
     }, [selectedNewsType, dispatch]);
 
     const handleAddNewNews = () => {
-        dispatch(addNewNewsAction());
+        navigate('add');
     };
 
     const handleDeleteNews = (id: string) => {

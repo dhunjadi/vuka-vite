@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {forwardRef} from 'react';
 
 interface ToggleSwitchProps {
     id: string;
@@ -7,10 +7,18 @@ interface ToggleSwitchProps {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-function ToggleSwitch({id, name, isOn, onChange}: ToggleSwitchProps): JSX.Element {
+const ToggleSwitch = forwardRef<HTMLInputElement, ToggleSwitchProps>(({id, name, isOn, onChange}, ref) => {
     return (
         <div className="c-toggleSwitch">
-            <input className="c-toggleSwitch__input" name={name} id={id} type="checkbox" checked={isOn} onChange={onChange} />
+            <input
+                ref={ref}
+                className="c-toggleSwitch__input"
+                name={name}
+                id={id}
+                type="checkbox"
+                checked={isOn !== undefined ? isOn : false}
+                onChange={onChange}
+            />
 
             <div className="c-toggleSwitch__body">
                 <label className="c-toggleSwitch__label" htmlFor={id}>
@@ -19,6 +27,6 @@ function ToggleSwitch({id, name, isOn, onChange}: ToggleSwitchProps): JSX.Elemen
             </div>
         </div>
     );
-}
+});
 
 export default ToggleSwitch;

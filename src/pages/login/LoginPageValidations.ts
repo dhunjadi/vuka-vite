@@ -1,11 +1,7 @@
 import {ZodType, z} from 'zod';
-
-export interface LoginForm {
-  email: string;
-  password: string;
-}
+import {LoginForm} from '../../types';
 
 export const loginPageValidationSchema: ZodType<LoginForm> = z.object({
-  email: z.string().email(),
-  password: z.string().min(8).max(20),
+    email: z.string().email(),
+    password: z.string().min(8).max(20),
 });

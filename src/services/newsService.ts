@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import axios from 'axios';
 import {API_URL} from '../constants';
+import {News} from '../types';
 
 const getAccessToken = () => {
     return localStorage.getItem('access_token');
@@ -24,9 +25,9 @@ export const getNewsByType = async (type: string) => {
         .catch((err) => console.log(err));
 };
 
-export const addNewNews = async () => {
+export const addNewNews = async (data: Omit<News, '_id'>) => {
     return await axios
-        .post(`${API_URL}/news/new`, null, {headers})
+        .post(`${API_URL}/news/new`, data, {headers})
         .then((res) => res.data)
         .catch((err) => console.log(err));
 };

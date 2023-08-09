@@ -16,8 +16,9 @@ export const setNewsListAction = (news: News[]): SetNewsListAction => ({
     news,
 });
 
-export const addNewNewsAction = (): AddNewNewsAction => ({
+export const addNewNewsAction = (data: Omit<News, '_id'>): AddNewNewsAction => ({
     type: ADD_NEW_NEWS,
+    data,
 });
 
 export const deleteNewsAction = (newsId: string): DeleteNewsAction => ({

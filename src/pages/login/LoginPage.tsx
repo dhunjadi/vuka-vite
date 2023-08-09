@@ -2,12 +2,13 @@ import React from 'react';
 import logo from '../../assets/logo.png';
 import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
-import {LoginForm, loginPageValidationSchema} from './LoginPageValidations';
+import {loginPageValidationSchema} from './LoginPageValidations';
 import Button from '../../components/Button';
 import {useDispatch} from 'react-redux';
 import {setLoggedinUserAction} from '../../store/actions/userActions';
 import {useNavigate} from 'react-router-dom';
 import {login} from '../../services/userServices';
+import {LoginForm} from '../../types';
 
 const LoginPage: React.FC = () => {
     const {
@@ -15,7 +16,7 @@ const LoginPage: React.FC = () => {
         handleSubmit,
         watch,
         formState: {errors},
-    } = useForm<LoginForm>({resolver: zodResolver(loginPageValidationSchema)});
+    } = useForm<LoginForm>({resolver: zodResolver(loginPageValidationSchema), defaultValues: {email: '', password: ''}});
     const watchFields = watch();
     const dispatch = useDispatch();
     const navigate = useNavigate();

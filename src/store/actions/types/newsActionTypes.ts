@@ -13,6 +13,7 @@ export type SetNewsListAction = {
 
 export type AddNewNewsAction = {
     type: typeof ADD_NEW_NEWS;
+    data: Omit<News, '_id'>;
 };
 
 export type DeleteNewsAction = {

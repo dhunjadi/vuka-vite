@@ -1,0 +1,71 @@
+.p-newsActions {
+    @include pageLayout;
+    align-items: initial;
+
+    select {
+        text-align-last: center;
+        width: 100%;
+        border: 0.2rem solid $color-primary-light;
+        border-radius: $br-pill;
+        background-color: $color-primary-dark;
+        margin: 1rem;
+        color: $color-white;
+        padding: 1.5rem 3rem;
+    }
+
+    option {
+        text-align: center;
+    }
+
+    &__form {
+        &_pair {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.2rem;
+            color: $color-white;
+        }
+
+        &_buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        input,
+        textarea {
+            width: -webkit-fill-available;
+            height: 100%;
+            border: 0.2rem solid $color-primary-light;
+            border-radius: $br-pill;
+            background-color: $color-primary-dark;
+            margin: 1rem;
+            color: $color-white;
+            padding: 1.5rem 3rem;
+
+            &::placeholder {
+                color: $color-placeholder;
+            }
+
+            &:focus {
+                outline: none;
+                border: 0.2rem solid $color-secondary-light;
+            }
+        }
+
+        textarea {
+            border-radius: $br-standard;
+            resize: none;
+        }
+
+        p {
+            color: $color-secondary-light;
+            font-size: 1.6rem;
+        }
+    }
+
+    .c-toggleSwitch {
+        border: 0.2rem solid $color-primary-light;
+        border-radius: $br-pill;
+    }
+}

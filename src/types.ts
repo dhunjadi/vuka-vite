@@ -1,3 +1,15 @@
+/* VALIDATIONS */
+
+export interface LoginForm {
+    email: string;
+    password: string;
+}
+
+export interface NewsActionsForm {
+    email: string;
+    password: string;
+}
+
 export interface User {
     _id: string;
     fName: string;

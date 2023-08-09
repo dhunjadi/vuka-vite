@@ -1,6 +1,5 @@
 import axios from 'axios';
-import {LoginForm} from '../pages/login/LoginPageValidations';
-import {User} from '../types';
+import {LoginForm, User} from '../types';
 import jwtDecode from 'jwt-decode';
 import {API_URL} from '../constants';
 

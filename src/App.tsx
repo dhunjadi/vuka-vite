@@ -3,6 +3,7 @@ import LoginPage from './pages/login/LoginPage';
 import NewsPage from './pages/news/NewsPage';
 import Navbar from './components/navbar/Navbar';
 import TasksPage from './pages/tasks/TasksPage';
+import NewsActionsPage from './pages/news/NewsActionsPage';
 
 function App() {
     return (
@@ -11,7 +12,10 @@ function App() {
                 <Routes>
                     <Route path="/" element={<LoginPage />} />
                     <Route element={<Navbar />}>
-                        <Route path="/news" element={<NewsPage />} />
+                        <Route path="/news">
+                            <Route index element={<NewsPage />} />
+                            <Route path="add" element={<NewsActionsPage />} />
+                        </Route>
                         <Route path="/tasks" element={<TasksPage />} />
                     </Route>
                 </Routes>
