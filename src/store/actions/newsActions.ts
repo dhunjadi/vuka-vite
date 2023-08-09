@@ -1,10 +1,11 @@
 import {News, NewsType} from '../../types';
-import {AddNewNewsAction, DeleteNewsAction, FetchNewsByTypeAction, SetNewsListAction} from './types/newsActionTypes';
+import {AddNewNewsAction, DeleteNewsAction, EditNewsAction, FetchNewsByTypeAction, SetNewsListAction} from './types/newsActionTypes';
 
 export const FETCH_NEWS_BY_TYPE = 'FETCH_NEWS_BY_TYPE';
 export const SET_NEWS_LIST = 'SET_NEWS_LIST';
 export const ADD_NEW_NEWS = 'ADD_NEW_NEWS';
 export const DELETE_NEWS = 'DELETE_NEWS';
+export const EDIT_NEWS = 'EDIT_NEWS';
 
 export const fetchNewsByTypeAction = (newsType: NewsType): FetchNewsByTypeAction => ({
     type: FETCH_NEWS_BY_TYPE,
@@ -24,4 +25,10 @@ export const addNewNewsAction = (data: Omit<News, '_id'>): AddNewNewsAction => (
 export const deleteNewsAction = (newsId: string): DeleteNewsAction => ({
     type: DELETE_NEWS,
     newsId,
+});
+
+export const editNewsAction = (id: string, updateData: Omit<News, '_id'>): EditNewsAction => ({
+    type: EDIT_NEWS,
+    id,
+    updateData,
 });

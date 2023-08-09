@@ -50,6 +50,7 @@ const NewsPage = () => {
                                 setClickedNewsId(el._id);
                                 setIsDeleteNewsModalOpen(true);
                             }}
+                            handleEdit={() => navigate(`edit/${el._id}`)}
                         />
                     );
                 })}

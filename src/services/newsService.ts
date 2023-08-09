@@ -38,3 +38,10 @@ export const deleteNews = async (id: string) => {
         .then((res) => res.data)
         .catch((err) => console.log(err));
 };
+
+export const editNews = async (id: string, updateData: Omit<News, '_id'>) => {
+    return await axios
+        .put(`${API_URL}/news/edit/${id}`, updateData, {headers})
+        .then((res) => res.data)
+        .catch((err) => console.log(err));
+};

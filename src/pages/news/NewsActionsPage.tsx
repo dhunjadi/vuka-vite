@@ -1,14 +1,21 @@
-import {useDispatch} from 'react-redux';
-import {useNavigate} from 'react-router-dom';
-import {News} from '../../types';
+import {useDispatch, useSelector} from 'react-redux';
+import {useLocation, useNavigate, useParams} from 'react-router-dom';
+import {News, NewsType} from '../../types';
 import {newsActionsPageValidationSchema} from './NewsActionsPageValidations';
 import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import ToggleSwitch from '../../components/ToggleSwitch';
 import Button from '../../components/Button';
-import {addNewNewsAction} from '../../store/actions/newsActions';
+import {addNewNewsAction, editNewsAction} from '../../store/actions/newsActions';
+import {StoreState} from '../../store/reducers/rootReducer';
 
 const NewsActionsPage = (): JSX.Element => {
+    const {newsList} = useSelector((state: StoreState) => state.newsReducer);
+    const {id} = useParams();
+    const newsBeingEdited = newsList.find((news) => news._id === id);
+    const {pathname} = useLocation();
+    const isEditing = pathname.includes('edit');
+
     const {
         register,
         handleSubmit,
@@ -16,21 +23,39 @@ const NewsActionsPage = (): JSX.Element => {
         formState: {errors},
     } = useForm<News>({
         resolver: zodResolver(newsActionsPageValidationSchema),
-        defaultValues: {title: 'News Title', text: 'News Text', type: 'general', isPublished: false},
+        defaultValues: getDefaultValues(),
     });
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     const watchFields = watch();
 
-    const newsTypes = [
-        {id: '1', value: '', label: '---'},
-        {id: '2', value: 'general', label: 'General'},
-        {id: '3', value: 'student', label: 'Student'},
-        {id: '4', value: 'professor', label: 'Professor'},
+    const newsTypes: {id: string; value: NewsType; label: string}[] = [
+        {id: '1', value: 'general', label: 'General'},
+        {id: '2', value: 'student', label: 'Student'},
+        {id: '3', value: 'professor', label: 'Professor'},
     ];
 
+    function getDefaultValues() {
+        if (isEditing && newsBeingEdited) {
+            return {
+                title: newsBeingEdited.title,
+                text: newsBeingEdited.text,
+                type: newsBeingEdited.type,
+                isPublished: newsBeingEdited.isPublished,
+            };
+        }
+
+        return {
+            title: 'News Title',
+            text: 'News Text',
+            type: 'general' as NewsType,
+            isPublished: false,
+        };
+    }
+
     const onSubmit = () => {
-        dispatch(addNewNewsAction(watchFields));
+        isEditing && id && newsBeingEdited ? dispatch(editNewsAction(id, watchFields)) : dispatch(addNewNewsAction(watchFields));
         navigate(-1);
     };
 

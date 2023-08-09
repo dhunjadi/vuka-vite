@@ -1,8 +1,8 @@
 import {ForkEffect, call, put, takeLatest} from 'redux-saga/effects';
-import {ADD_NEW_NEWS, DELETE_NEWS, FETCH_NEWS_BY_TYPE, fetchNewsByTypeAction, setNewsListAction} from '../actions/newsActions';
+import {ADD_NEW_NEWS, DELETE_NEWS, EDIT_NEWS, FETCH_NEWS_BY_TYPE, fetchNewsByTypeAction, setNewsListAction} from '../actions/newsActions';
 import {News} from '../../types';
-import {addNewNews, deleteNews, getNewsByType} from '../../services/newsService';
-import {AddNewNewsAction, DeleteNewsAction, FetchNewsByTypeAction} from '../actions/types/newsActionTypes';
+import {addNewNews, deleteNews, editNews, getNewsByType} from '../../services/newsService';
+import {AddNewNewsAction, DeleteNewsAction, EditNewsAction, FetchNewsByTypeAction} from '../actions/types/newsActionTypes';
 
 export function* fetchNewsByTypeSaga(action: FetchNewsByTypeAction): Generator<void> | void {
     const response: News[] = yield call(getNewsByType, action.newsType);
@@ -19,8 +19,14 @@ export function* deleteNewsSaga(action: DeleteNewsAction): Generator<void> | voi
     yield put(fetchNewsByTypeAction('general'));
 }
 
+export function* editNewsSaga(action: EditNewsAction): Generator<void> | void {
+    yield call(editNews, action.id, action.updateData);
+    yield put(fetchNewsByTypeAction('general'));
+}
+
 export function* watchNewsSaga(): Generator<ForkEffect<never>, void> {
     yield takeLatest(FETCH_NEWS_BY_TYPE, fetchNewsByTypeSaga);
     yield takeLatest(ADD_NEW_NEWS, addNewNewsSaga);
     yield takeLatest(DELETE_NEWS, deleteNewsSaga);
+    yield takeLatest(EDIT_NEWS, editNewsSaga);
 }
