@@ -19,6 +19,10 @@ export const getAllNews = async () => {
 };
 
 export const getNewsByType = async (type: string) => {
+    const headers = {
+        Authorization: `Bearer ${getAccessToken()}`,
+    };
+
     return await axios
         .get(`${API_URL}/news/${type}`, {headers})
         .then((res) => res.data)
