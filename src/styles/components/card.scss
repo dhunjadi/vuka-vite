@@ -25,6 +25,15 @@
         text-transform: capitalize;
     }
 
+    &__info {
+        display: flex;
+        justify-content: space-between;
+        color: $color-white;
+        font-size: 1.6rem;
+        margin: 1rem 0;
+        text-transform: capitalize;
+    }
+
     &__buttons {
         display: flex;
         gap: 1rem;
