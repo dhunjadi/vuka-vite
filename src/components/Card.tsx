@@ -27,10 +27,12 @@ const Card = ({title, text, type, isPublished, handleEdit, handleDelete}: PropsW
                 </div>
             )}
             <div className="c-card__body">{text}</div>
-            <div className="c-card__buttons">
-                <Button onClick={handleEdit}>Edit</Button>
-                <Button onClick={handleDelete}>Delete</Button>
-            </div>
+            {loggedInUser.role !== 'student' && (
+                <div className="c-card__buttons">
+                    <Button onClick={handleEdit}>Edit</Button>
+                    <Button onClick={handleDelete}>Delete</Button>
+                </div>
+            )}
         </div>
     );
 };

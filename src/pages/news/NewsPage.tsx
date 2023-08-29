@@ -41,7 +41,7 @@ const NewsPage = () => {
                     tabList={newsTypes}
                     selectedTab={selectedNewsType}
                     handleSelect={(tab) => setSelectedNewsType(tab)}
-                    buttons={<Button onClick={handleAddNewNews}>Add news</Button>}
+                    buttons={loggedInUser.role !== 'student' ? <Button onClick={handleAddNewNews}>Add news</Button> : <></>}
                 />
                 {newsList.map((el) => {
                     return (

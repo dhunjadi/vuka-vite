@@ -18,6 +18,7 @@
         padding: 1rem;
         border-radius: $br-pill;
         text-transform: uppercase;
+        cursor: pointer;
 
         &--active {
             box-shadow: 0 0.1rem 1rem $color-secondary-light;

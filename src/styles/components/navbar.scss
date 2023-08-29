@@ -89,6 +89,7 @@
             width: 3rem;
             transition: all 0.2s ease-in-out;
             margin: 1rem;
+            cursor: pointer;
 
             @include screenTablet {
                 margin: 2;
