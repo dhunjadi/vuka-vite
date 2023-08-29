@@ -1,11 +1,13 @@
 import {useCallback, useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
-import {NavLink, Outlet} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {NavLink, Outlet, useNavigate} from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTimes, faBars} from '@fortawesome/free-solid-svg-icons';
 import logo from '../../assets/logo.png';
 import {StoreState} from '../../store/reducers/rootReducer';
 import {navbarList} from './navbarList';
+import Modal from '../Modal';
+import {userLogoutAction} from '../../store/actions/userActions';
 
 const Navbar = (): JSX.Element => {
     const {loggedInUser} = useSelector((state: StoreState) => state.userReducer);
@@ -13,6 +15,10 @@ const Navbar = (): JSX.Element => {
     const [lastScrollY, setLastScrollY] = useState<number>(0);
     const [showNavbar, setShowNavbar] = useState<boolean>(true);
     const [clickedBurgerMenu, setClickedBurgerMenu] = useState<boolean>(true);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleNavbarOpacity = useCallback((): void => {
         if (window.scrollY > lastScrollY) setShowNavbar(false);
@@ -21,16 +27,22 @@ const Navbar = (): JSX.Element => {
         setLastScrollY(window.scrollY);
     }, [lastScrollY]);
 
-    const handleBurgerMenuClick = (): void => {
-        setClickedBurgerMenu(!clickedBurgerMenu);
-    };
-
     useEffect(() => {
         window.addEventListener('scroll', handleNavbarOpacity);
         return () => {
             window.removeEventListener('scroll', handleNavbarOpacity);
         };
     }, [lastScrollY, handleNavbarOpacity]);
+
+    const handleBurgerMenuClick = (): void => {
+        setClickedBurgerMenu(!clickedBurgerMenu);
+    };
+
+    const handleLogout = (): void => {
+        dispatch(userLogoutAction());
+        localStorage.removeItem('access_token');
+        navigate('/');
+    };
 
     return (
         <>
@@ -50,9 +62,22 @@ const Navbar = (): JSX.Element => {
                     {navbarList.map((item) => {
                         return <NavLink key={item.id} to={item.url} className={`c-navbar__icons_${item.title}`} />;
                     })}
-                    <a className="c-navbar__icons_logout" />
+                    <a className="c-navbar__icons_logout" onClick={() => setIsModalOpen(true)} />
                 </div>
             </nav>
+
+            <Modal
+                isOpen={isModalOpen}
+                onCancel={() => setIsModalOpen(false)}
+                onConfirm={handleLogout}
+                header="Log out?"
+                showConfirm
+                showCancel
+                confirmText="Confirm"
+                cancelText="Cancel"
+            >
+                Are u sure you want to log out?
+            </Modal>
 
             <Outlet />
         </>

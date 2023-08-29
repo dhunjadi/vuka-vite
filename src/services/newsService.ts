@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import axios from 'axios';
 import {API_URL} from '../constants';
-import {News} from '../types';
+import {News} from '../types/newsTypes';
 
 const getAccessToken = () => {
     return localStorage.getItem('access_token');

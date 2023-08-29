@@ -2,7 +2,7 @@ import {PropsWithChildren} from 'react';
 import Button from './Button';
 import {useSelector} from 'react-redux';
 import {StoreState} from '../store/reducers/rootReducer';
-import {News} from '../types';
+import {News} from '../types/newsTypes';
 
 interface CardProps extends Omit<News, '_id'> {
     handleEdit?: () => void;

@@ -1,7 +1,8 @@
 import axios from 'axios';
-import {LoginForm, User} from '../types';
+import {LoginForm} from '../validations';
 import jwtDecode from 'jwt-decode';
 import {API_URL} from '../constants';
+import {User} from '../types/userTypes';
 
 export const login = async ({email, password}: LoginForm): Promise<User> => {
     const response = await axios.post(`${API_URL}/login`, {email, password});

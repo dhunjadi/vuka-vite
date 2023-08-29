@@ -1,13 +1,13 @@
-import {User} from '../../types';
+import {User} from '../../types/userTypes';
 import {UserAction} from '../actions/types/userActionTypes';
-import {SET_LOGGEDIN_USER} from '../actions/userActions';
+import {SET_LOGGEDIN_USER, USER_LOGOUT} from '../actions/userActions';
 
 export interface UserReducerState {
     loggedInUser: User;
 }
 
 const initialState: UserReducerState = {
-    loggedInUser: {_id: '', fName: '', lName: '', email: '', imgSrc: '', role: ''},
+    loggedInUser: {_id: '', fName: '', lName: '', email: '', imgSrc: '', role: 'admin'},
 };
 
 export const userReducer = (state: UserReducerState = initialState, action: UserAction) => {
@@ -17,6 +17,8 @@ export const userReducer = (state: UserReducerState = initialState, action: User
                 ...state,
                 loggedInUser: action.user,
             };
+        case USER_LOGOUT:
+            return initialState;
         default:
             return state;
     }

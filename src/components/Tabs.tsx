@@ -1,4 +1,4 @@
-import {NewsType} from '../types';
+import {NewsType} from '../types/newsTypes';
 
 interface TabsProps {
     tabList: string[];

@@ -1,5 +1,5 @@
-import {User} from '../../../types';
-import {SET_LOGGEDIN_USER, USER_LOGIN_REQUEST} from '../userActions';
+import {User} from '../../../types/userTypes';
+import {SET_LOGGEDIN_USER, USER_LOGIN_REQUEST, USER_LOGOUT} from '../userActions';
 
 export type UserLoginRequestAction = {
     type: typeof USER_LOGIN_REQUEST;
@@ -12,4 +12,8 @@ export type SetLoggedinUserAction = {
     user: User;
 };
 
-export type UserAction = UserLoginRequestAction | SetLoggedinUserAction;
+export type UserLogoutAction = {
+    type: typeof USER_LOGOUT;
+};
+
+export type UserAction = UserLoginRequestAction | SetLoggedinUserAction | UserLogoutAction;

@@ -1,4 +1,4 @@
-import {News} from '../../types';
+import {News} from '../../types/newsTypes';
 import {DELETE_NEWS, SET_NEWS_LIST} from '../actions/newsActions';
 import {NewsAction} from '../actions/types/newsActionTypes';
 

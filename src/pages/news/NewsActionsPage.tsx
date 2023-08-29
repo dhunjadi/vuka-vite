@@ -1,13 +1,13 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {useLocation, useNavigate, useParams} from 'react-router-dom';
-import {News, NewsType} from '../../types';
-import {newsActionsPageValidationSchema} from './NewsActionsPageValidations';
 import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import ToggleSwitch from '../../components/ToggleSwitch';
 import Button from '../../components/Button';
 import {addNewNewsAction, editNewsAction} from '../../store/actions/newsActions';
 import {StoreState} from '../../store/reducers/rootReducer';
+import {News, NewsType} from '../../types/newsTypes';
+import {newsActionsPageValidationSchema} from '../../validations';
 
 const NewsActionsPage = (): JSX.Element => {
     const {newsList} = useSelector((state: StoreState) => state.newsReducer);

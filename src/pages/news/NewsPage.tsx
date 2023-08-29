@@ -1,5 +1,4 @@
 import {useEffect, useState} from 'react';
-import {NewsType} from '../../types';
 import Card from '../../components/Card';
 import Tabs from '../../components/Tabs';
 import Button from '../../components/Button';
@@ -8,13 +7,16 @@ import {useDispatch, useSelector} from 'react-redux';
 import {StoreState} from '../../store/reducers/rootReducer';
 import Modal from '../../components/Modal';
 import {useNavigate} from 'react-router-dom';
+import {NewsType} from '../../types/newsTypes';
 
 const NewsPage = () => {
+    const {newsList} = useSelector((state: StoreState) => state.newsReducer);
+    const {loggedInUser} = useSelector((state: StoreState) => state.userReducer);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const {newsList} = useSelector((state: StoreState) => state.newsReducer);
 
-    const newsTypes: NewsType[] = ['general', 'professor'];
+    const newsTypes: NewsType[] = loggedInUser.role !== 'student' ? ['general', 'professor'] : ['general', 'student'];
     const [selectedNewsType, setSelectedNewsType] = useState<NewsType>(newsTypes[0]);
     const [isDeleteNewsModalOpen, setIsDeleteNewsModalOpen] = useState<boolean>(false);
     const [clickedNewsId, setClickedNewsId] = useState<string>('');

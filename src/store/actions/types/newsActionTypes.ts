@@ -1,4 +1,4 @@
-import {News, NewsType} from '../../../types';
+import {NewsType, News} from '../../../types/newsTypes';
 import {ADD_NEW_NEWS, DELETE_NEWS, EDIT_NEWS, FETCH_NEWS_BY_TYPE, SET_NEWS_LIST} from '../newsActions';
 
 export type FetchNewsByTypeAction = {
