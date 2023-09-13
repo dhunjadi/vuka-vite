@@ -1,11 +1,8 @@
-import {applyMiddleware, createStore} from 'redux';
-import {rootReducer} from './reducers/rootReducer';
-import createSagaMiddleware from 'redux-saga';
-import {watchNewsSaga} from './sagas/news';
+import {configureStore} from '@reduxjs/toolkit';
+import {rootReducer} from './features/rootReducer';
 import {persistStore, persistReducer} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-
-const sagaMiddleware = createSagaMiddleware();
+import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 
 const persistConfig = {
     key: 'main-root',
@@ -14,7 +11,16 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export const store = createStore(persistedReducer, applyMiddleware(sagaMiddleware));
+export const store = configureStore({
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: false,
+        }),
+});
 export const persistor = persistStore(store);
 
-sagaMiddleware.run(watchNewsSaga);
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
+export const useAppDispatch: () => AppDispatch = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

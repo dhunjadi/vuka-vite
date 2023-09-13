@@ -1,16 +1,15 @@
-import {useDispatch, useSelector} from 'react-redux';
 import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import ToggleSwitch from '../../components/ToggleSwitch';
 import Button from '../../components/Button';
-import {addNewNewsAction, editNewsAction} from '../../store/actions/newsActions';
-import {StoreState} from '../../store/reducers/rootReducer';
 import {News, NewsType} from '../../types/newsTypes';
 import {newsActionsPageValidationSchema} from '../../validations';
+import {RootState, useAppDispatch, useAppSelector} from '../../store/store';
+import {createNewNews, updateNews} from '../../store/thunks/newsThunks';
 
-const NewsActionsPage = (): JSX.Element => {
-    const {newsList} = useSelector((state: StoreState) => state.newsReducer);
+const NewsActionsPage = () => {
+    const {newsList} = useAppSelector((state: RootState) => state.news);
     const {id} = useParams();
     const newsBeingEdited = newsList.find((news) => news._id === id);
     const {pathname} = useLocation();
@@ -25,7 +24,7 @@ const NewsActionsPage = (): JSX.Element => {
         resolver: zodResolver(newsActionsPageValidationSchema),
         defaultValues: getDefaultValues(),
     });
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const watchFields = watch();
@@ -55,7 +54,7 @@ const NewsActionsPage = (): JSX.Element => {
     }
 
     const onSubmit = () => {
-        isEditing && id && newsBeingEdited ? dispatch(editNewsAction(id, watchFields)) : dispatch(addNewNewsAction(watchFields));
+        isEditing && id && newsBeingEdited ? dispatch(updateNews({id, data: watchFields})) : dispatch(createNewNews(watchFields));
         navigate(-1);
     };
 

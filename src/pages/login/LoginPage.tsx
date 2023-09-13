@@ -4,11 +4,11 @@ import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import Button from '../../components/Button';
 import {useDispatch} from 'react-redux';
-import {setLoggedinUserAction} from '../../store/actions/userActions';
 import {useNavigate} from 'react-router-dom';
 import {login} from '../../services/userServices';
 import {LoginForm} from '../../types/loginTypes';
 import {loginPageValidationSchema} from '../../validations';
+import {setLoggedInUser} from '../../store/features/userSlice';
 
 const LoginPage: React.FC = () => {
     const {
@@ -25,7 +25,7 @@ const LoginPage: React.FC = () => {
 
     const onSubmit = async ({email, password}: LoginForm) => {
         const user = await login({email, password});
-        dispatch(setLoggedinUserAction(user));
+        dispatch(setLoggedInUser(user));
         navigate('/news');
     };
 

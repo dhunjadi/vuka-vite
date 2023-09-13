@@ -2,18 +2,17 @@ import {useEffect, useState} from 'react';
 import Card from '../../components/Card';
 import Tabs from '../../components/Tabs';
 import Button from '../../components/Button';
-import {deleteNewsAction, fetchNewsByTypeAction} from '../../store/actions/newsActions';
-import {useDispatch, useSelector} from 'react-redux';
-import {StoreState} from '../../store/reducers/rootReducer';
 import Modal from '../../components/Modal';
 import {useNavigate} from 'react-router-dom';
 import {NewsType} from '../../types/newsTypes';
+import {RootState, useAppDispatch, useAppSelector} from '../../store/store';
+import {deleteNews, fetchNews} from '../../store/thunks/newsThunks';
 
 const NewsPage = () => {
-    const {newsList} = useSelector((state: StoreState) => state.newsReducer);
-    const {loggedInUser} = useSelector((state: StoreState) => state.userReducer);
+    const {newsList} = useAppSelector((state: RootState) => state.news);
+    const {loggedInUser} = useAppSelector((state: RootState) => state.user);
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const newsTypes: NewsType[] = loggedInUser.role !== 'student' ? ['general', 'professor'] : ['general', 'student'];
@@ -22,7 +21,7 @@ const NewsPage = () => {
     const [clickedNewsId, setClickedNewsId] = useState<string>('');
 
     useEffect(() => {
-        dispatch(fetchNewsByTypeAction(selectedNewsType));
+        dispatch(fetchNews(selectedNewsType));
     }, [selectedNewsType, dispatch]);
 
     const handleAddNewNews = () => {
@@ -30,8 +29,9 @@ const NewsPage = () => {
     };
 
     const handleDeleteNews = (id: string) => {
-        dispatch(deleteNewsAction(id));
+        dispatch(deleteNews(id));
         setIsDeleteNewsModalOpen(false);
+        dispatch(fetchNews(selectedNewsType));
     };
 
     return (

@@ -1,8 +1,8 @@
 import {PropsWithChildren} from 'react';
 import Button from './Button';
 import {useSelector} from 'react-redux';
-import {StoreState} from '../store/reducers/rootReducer';
 import {News} from '../types/newsTypes';
+import {RootState} from '../store/store';
 
 interface CardProps extends Omit<News, '_id'> {
     handleEdit?: () => void;
@@ -10,7 +10,7 @@ interface CardProps extends Omit<News, '_id'> {
 }
 
 const Card = ({title, text, type, isPublished, handleEdit, handleDelete}: PropsWithChildren<CardProps>) => {
-    const {loggedInUser} = useSelector((state: StoreState) => state.userReducer);
+    const {loggedInUser} = useSelector((state: RootState) => state.user);
 
     return (
         <div className="c-card">

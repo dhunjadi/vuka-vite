@@ -1,16 +1,16 @@
 import {useCallback, useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {NavLink, Outlet, useNavigate} from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTimes, faBars} from '@fortawesome/free-solid-svg-icons';
 import logo from '../../assets/logo.png';
-import {StoreState} from '../../store/reducers/rootReducer';
 import {navbarList} from './navbarList';
 import Modal from '../Modal';
-import {userLogoutAction} from '../../store/actions/userActions';
+import {RootState, useAppSelector} from '../../store/store';
+import {userLogout} from '../../store/features/userSlice';
 
 const Navbar = (): JSX.Element => {
-    const {loggedInUser} = useSelector((state: StoreState) => state.userReducer);
+    const {loggedInUser} = useAppSelector((state: RootState) => state.user);
 
     const [lastScrollY, setLastScrollY] = useState<number>(0);
     const [showNavbar, setShowNavbar] = useState<boolean>(true);
@@ -39,7 +39,7 @@ const Navbar = (): JSX.Element => {
     };
 
     const handleLogout = (): void => {
-        dispatch(userLogoutAction());
+        dispatch(userLogout());
         localStorage.removeItem('access_token');
         navigate('/');
     };
