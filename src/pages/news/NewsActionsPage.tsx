@@ -31,8 +31,8 @@ const NewsActionsPage = () => {
 
     const newsTypes: {id: string; value: NewsType; label: string}[] = [
         {id: '1', value: 'general', label: 'General'},
-        {id: '2', value: 'student', label: 'Student'},
-        {id: '3', value: 'professor', label: 'Professor'},
+        {id: '2', value: 'hospitality', label: 'Student'},
+        {id: '3', value: 'mechatronics', label: 'Professor'},
     ];
 
     function getDefaultValues() {
