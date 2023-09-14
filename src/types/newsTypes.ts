@@ -1,4 +1,6 @@
-export type NewsType = 'general' | 'student' | 'professor';
+import {StudyProgram} from './userTypes';
+
+export type NewsType = 'general' | 'all' | StudyProgram;
 
 export interface News {
     _id: string;

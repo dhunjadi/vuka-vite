@@ -15,7 +15,7 @@ const NewsPage = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const newsTypes: NewsType[] = loggedInUser.role !== 'student' ? ['general', 'professor'] : ['general', 'student'];
+    const newsTypes: NewsType[] = loggedInUser.role !== 'student' ? ['all'] : ['general', loggedInUser.studyProgram];
     const [selectedNewsType, setSelectedNewsType] = useState<NewsType>(newsTypes[0]);
     const [isDeleteNewsModalOpen, setIsDeleteNewsModalOpen] = useState<boolean>(false);
     const [clickedNewsId, setClickedNewsId] = useState<string>('');
